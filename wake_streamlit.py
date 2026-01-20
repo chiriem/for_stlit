@@ -18,16 +18,15 @@ def wake_one(page, url: str) -> bool:
     count = btn.count()
     print(f"[WAKE] selector match count = {count}")
 
-    # 버튼이 있는지만 확인 (클릭 금지)
+    # 버튼이 있는지만 확인 
     try:
         visible = btn.is_visible(timeout=2000) if count else False
     except Exception:
         visible = False
     print(f"[WAKE] visible = {visible}")
-
-    # ---- 클릭이 필요할 때만 아래 2줄 주석 해제 (현재는 요청대로 클릭하지 않음) ----
-    # if visible:
-    #     btn.click(timeout=10_000)
+    
+    if visible:
+        btn.click(timeout=10_000)
 
     # 최종적으로 앱 본문이 로드됐는지 확인(이걸 성공 기준으로 두는 게 안전)
     try:
