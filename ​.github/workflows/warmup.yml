@@ -1,0 +1,29 @@
+name: streamlit-warmup
+
+on:
+  schedule:
+    - cron: "55 23 * * *"  # 23:55 UTC = 08:55 KST
+  workflow_dispatch:
+
+jobs:
+  warmup:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        url:
+          - "https://adfailanalysis.streamlit.app/"
+          - "https://failrag.streamlit.app/"
+          - "https://explaineda.streamlit.app/"
+    steps:
+      - name: Warm up Streamlit app
+        run: |
+          set -e
+          echo "Warming up: ${{ matrix.url }}"
+
+          # 1차 호출 (리다이렉트 따라가고, 최대 60초 대기)
+          curl -L --max-time 60 -A "warmup-bot" -o /dev/null -sS -w "HTTP=%{http_code}\n" "${{ matrix.url }}"
+
+          # 잠깐 기다렸다가 2차 호출
+          sleep 15
+          curl -L --max-time 60 -A "warmup-bot" -o /dev/null -sS -w "HTTP=%{http_code}\n" "${{ matrix.url }}"
