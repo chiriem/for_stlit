@@ -27,4 +27,5 @@ jobs:
             https://failrag.streamlit.app/
             https://explaineda.streamlit.app/
             https://crimeprj.streamlit.app/
+            https://quote2u.streamlit.app/
         run: python wake_streamlit.py            
