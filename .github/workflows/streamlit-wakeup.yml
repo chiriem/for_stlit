@@ -3,7 +3,7 @@ name: streamlit-wakeup
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"  # 09:00 KST
+    - cron: "12 0 * * *"  # 09:00 KST
 
 jobs:
   wake:
